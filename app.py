@@ -60,7 +60,7 @@ def create_app():
     def update_customer(customer_id):
         body = request.get_json()
         try:
-            customer = Customer.query.filter_by(id=customer_id)
+            customer = Customer.query.filter_by(id=customer_id).one_or_none()
             if 'name' not in body or 'city' not in body or 'email' not in body:
                 raise ValueError('Bad request')
             customer.name = body['name']
