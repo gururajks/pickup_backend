@@ -24,6 +24,7 @@ class Customer(db.Model):
     name = Column(String)
     city = Column(String)
     email = Column(String)
+    customer_orders = db.relationship('Order', backref='customer', lazy=True)
 
     def __init__(self, name, city, email):
         self.name = name
@@ -57,6 +58,7 @@ class Merchant(db.Model):
     name = Column(String)
     city = Column(String)
     email = Column(String)
+    merchant_orders = db.relationship('Order', backref='merchant', lazy=True)
 
     def __init__(self, name, city, email):
         self.name = name
@@ -80,4 +82,30 @@ class Merchant(db.Model):
             'name': self.name,
             'city': self.city,
             'email': self.email
+        }
+
+
+class Order(db.Model):
+    __tablename__ = 'order'
+
+    id = Column(Integer, primary_key=True)
+    customer_id = db.Column(Integer, db.ForeignKey('customer.id'), nullable=False)
+    merchant_id = db.Column(Integer, db.ForeignKey('merchant.id'), nullable=False)
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def format(self):
+        return {
+            'id': self.id,
+            'customer_id': self.customer_id,
+            'merchant_id': self.merchant_id
         }
