@@ -20,12 +20,29 @@ def create_app():
         customer = Customer.query.filter_by(id=customer_id).one_or_none()
         if not customer:
             abort(404)
-        orders = db.session.query(Order.id).join(Customer, Order.customer_id == Customer.id) \
-            .filter(Customer.id == customer_id).all()
 
         return jsonify({
             "customer": customer.format(),
-            "orders": [order.id for order in orders]
+        })
+
+    @app.route('/customers/<int:customer_id>/orders')
+    def get_customer_orders(customer_id):
+        orders = db.session.query(Order.id,
+                                  Merchant.id.label('merchant_id'),
+                                  Merchant.name.label('merchant_name'),
+                                  Merchant.city.label('merchant_city'),
+                                  Merchant.email.label('merchant_email')) \
+            .join(Merchant, Order.merchant_id == Merchant.id) \
+            .join(Customer, Order.customer_id == Customer.id) \
+            .filter(Customer.id == customer_id).all()
+        return jsonify({
+            "orders": [{
+                "order_id": order.id,
+                "merchant_id": order.merchant_id,
+                "merchant_name": order.merchant_name,
+                "merchant_city": order.merchant_city,
+                "merchant_email": order.merchant_email,
+            } for order in orders]
         })
 
     @app.route('/customers', methods=['POST'])
@@ -77,12 +94,30 @@ def create_app():
     @app.route('/merchants/<int:merchant_id>', methods=['GET'])
     def get_merchant(merchant_id):
         merchant = Merchant.query.filter_by(id=merchant_id).one_or_none()
-        orders = db.session.query(Order.id).join(Merchant, Order.merchant_id == Merchant.id) \
-            .filter(Merchant.id == merchant_id).all()
         return jsonify({
             "customer": merchant.format(),
-            "orders": [order.id for order in orders]
         })
+
+    @app.route('/merchants/<int:merchant_id>/orders', methods=['GET'])
+    def get_merchant_orders(merchant_id):
+        orders = db.session.query(Order.id,
+                                  Customer.id.label('customer_id'),
+                                  Customer.name.label('customer_name'),
+                                  Customer.city.label('customer_city'),
+                                  Customer.email.label('customer_email'))\
+            .join(Merchant, Order.merchant_id == Merchant.id)\
+            .join(Customer, Order.customer_id == Customer.id)\
+            .filter(Merchant.id == merchant_id).all()
+        return jsonify({
+            "orders": [{
+                "order_id": order.id,
+                "customer_id": order.customer_id,
+                "customer_name": order.customer_name,
+                "customer_city": order.customer_city,
+                "customer_email": order.customer_email,
+            } for order in orders]
+        })
+
 
     @app.route('/merchants', methods=['POST'])
     def create_merchants():
