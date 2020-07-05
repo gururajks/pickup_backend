@@ -69,11 +69,6 @@ def create_app():
             customer.update()
         except ValueError as e:
             abort(400)
-        except Exception as e:
-            db.session.rollback()
-        finally:
-            db.session.close()
-
         return jsonify({
             'success': True,
             'customer': customer.format()
