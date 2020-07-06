@@ -37,11 +37,39 @@ flask db upgrade
 
 ## Running the server
 
+Run the setup.sh to get the local server running. 
 ```bash
-export FLASK_APP=app.py
-export FLASK_ENV=development
-flask run
+chmod +x setup.sh
+./setup.sh
 ```
+
+#### AUTH0 Roles:
+Customer: "create:orders", "read:orders" 
+A customer can create and read orders
+
+Merchant: "read:orders"
+A merchant can only read orders 
+
+Authorization is required for creating and reading orders
+There is no authorization required for fetching/updating/deleting customer or merchant information.  
+
+```
+CUSTOMER_TOKEN = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImQ4ZzltZTNhR1RZZ1RwNEFVb3ktTSJ9.eyJpc3MiOiJodHRwczovL2ZzbmR1ZGFjaXR5Z3VydS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWYwMjRiZDhkNDRlZDgwMDE5NDY3MGIxIiwiYXVkIjoicGlja3VwYXV0aCIsImlhdCI6MTU5NDA1MDA1NCwiZXhwIjoxNTk0MTM2NDU0LCJhenAiOiJjSUVGWlpBc3dVUXRhcVdkVlpvOFpIU0pKcVg4TnF4eiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOm9yZGVycyIsInJlYWQ6b3JkZXJzIl19.Qwo8d7bGfoJg6bf1ufnx5bpUM8jZz09fi4bAZBwIvLpZ1Sg55uWgmUCDsA2LtSIl03xi_P4_3hwr3Tz8TCMSvN7gV_SN3KK0jq8323AF9PW3xp0ZRRXzyn_z-PdbmdX5mSJSRLTQLQrcOqciZmRg_SwQTqmOwreuzKlN597gKFeh26OAox17JTyZr1nZvnLe16Dpg3IKQXw87MRd4IDg0nb707B9qH6RB4KurUCpH1JySEcJB0wZAXokH4JE6UndtlXhyyFV8GrM4ePhxjIHdeEUdWRWJ5gQdoa4XYu119GHjJ2TuHg2Zno0alEZVVY0svZM2N4wt1oHmcEKDY8hZQ
+
+MERCHANT_TOKEN = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImQ4ZzltZTNhR1RZZ1RwNEFVb3ktTSJ9.eyJpc3MiOiJodHRwczovL2ZzbmR1ZGFjaXR5Z3VydS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWYwMjRiNzg5Mjg4MmMwMDEzNWQ4ZDYxIiwiYXVkIjoicGlja3VwYXV0aCIsImlhdCI6MTU5NDA1MDEyOCwiZXhwIjoxNTk0MTM2NTI4LCJhenAiOiJjSUVGWlpBc3dVUXRhcVdkVlpvOFpIU0pKcVg4TnF4eiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsicmVhZDpvcmRlcnMiXX0.GyQOtvmdEYxiAh8eH-jcP0EPek33ePDekc1TThd2dLtKXfU6m_lG8YdFH04bqcbGlhX041DBocWAkeD_v7Z3FvI4Ic776FfIlBP1gdR4Cxu5kNK71GrbMYmUOIH_nWOmtOaBeO6VJSB2CKM_fWe5jqESEd7WD4btmf66r3KAxjTPU9r6E_3KU4pmYbsE0vH3mnthMg6ig83F9-FKpj-9375qRZ8FC1YBJPW5UmLxyAJLw4itdqwSeC7lC1exPFBGNCt8Fd0rIgVb7aBSEBfqWGa2oCDQ5o8ZOi9BaRD8NFllVnV6Zkii4-4R42Q3fp5rR9NY-CRv2TS1jFWgllqaAg
+```
+CLIENT_ID = cIEFZZAswUQtaqWdVZo8ZHSJJqX8Nqxz
+
+
+
+## Hosted App
+
+The pickup app is hosted in Heroku
+URL: https://pickup-project.herokuapp.com/
+
+There is a postman collection in the repo: [POSTMAN Collection](https://github.com/gururajks/pickup_backend/blob/master/Capstone%20.postman_collection.json) that is provided to try all the API endpoints.
+Please make sure you add the `CUSTOMER_TOKEN` and `MERCHANT_TOKEN` as part of an environment in POSTMAN before trying it out. 
+
 
 ## Motivation
 
