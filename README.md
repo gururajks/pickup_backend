@@ -84,7 +84,7 @@ Eg: `curl http://localhost:5000/customers/1`
 
 Get the information of a particular merchant
 ##### Request
-Eg: `curl http://localhost:5000/merchant/1`
+Eg: `curl http://localhost:5000/merchants/1`
 
 ##### Response
 ```
@@ -161,7 +161,7 @@ Payload
 ```
 
 
-### `DELETE /customers<int:customer_id>`
+### `DELETE /customers/<int:customer_id>`
 
 Delete a Customer
 
@@ -212,7 +212,7 @@ Payload
 }
 ```
 
-### `DELETE /merchants<int:merchant_id>`
+### `DELETE /merchants/<int:merchant_id>`
 
 Delete a merchant
 

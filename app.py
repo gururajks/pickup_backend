@@ -178,7 +178,15 @@ def create_app():
         return jsonify({
             "success": False,
             "error": 400,
-            "message": "Bad Request, could be a bad formed json"
+            "message": "Bad Request, please check the body and the url"
+        }), 400
+
+    @app.errorhandler(405)
+    def bad_request(error):
+        return jsonify({
+            "success": False,
+            "error": 405,
+            "message": "Method not allowed. Please check documentation"
         }), 400
 
     @app.errorhandler(422)
@@ -194,7 +202,7 @@ def create_app():
         return jsonify({
             "success": False,
             "error": 404,
-            "message": "resource not found"
+            "message": "Resouce not Found!"
         }), 404
 
     @app.errorhandler(500)
@@ -202,7 +210,7 @@ def create_app():
         return jsonify({
             "success": False,
             "error": 500,
-            "message": "something went wrong"
+            "message": "Server Error, something went wrong"
         }), 500
 
     @app.errorhandler(AuthError)
