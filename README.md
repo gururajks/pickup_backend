@@ -62,6 +62,18 @@ python test_app.py
 
 ## API Documentation
 
+### `GET /`
+
+Returns a string "Healthy!"
+
+##### Request
+Eg: `curl http://localhost:5000/`
+
+##### Response
+```
+Healthy!
+```
+
 ### `GET /customers/<int:customer_id>`
 
 Get the information of a particular customer
