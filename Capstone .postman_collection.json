@@ -8,11 +8,8 @@
 	"item": [
 		{
 			"name": "Create a new Order ",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -27,9 +24,9 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"name\" : \"Doofu\",\n\"city\" : \"Austin\",\n\"email\" : \"doofu@gmail.com\"\n}"
+					"raw": "{\n\t\"customer_id\": 9,\n\t\"merchant_id\": 1\n\t\n}"
 				},
-				"url": "https://pickup-project.herokuapp.com/customers/1/orders",
+				"url": "https://pickup-project.herokuapp.com/orders",
 				"description": "Create a new order. Will require customer permissions\n`create:orders'"
 			},
 			"response": []
