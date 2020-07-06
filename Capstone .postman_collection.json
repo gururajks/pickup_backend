@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "d564c8ed-3688-4890-8628-4d7748a568f2",
+		"name": "Capstone ",
+		"description": "This is postman collection for the capstone project in Udacity\n\nAuthor: Gururaj Sridhar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create a new Order ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{CUSTOMER_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\" : \"Doofu\",\n\"city\" : \"Austin\",\n\"email\" : \"doofu@gmail.com\"\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/customers/1/orders",
+				"description": "Create a new order. Will require customer permissions\n`create:orders'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer information",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"customer_id\" : 1,\n\"merchant_id\" : 20\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/customers/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new Merchant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\" : \"DoofuActonVeryBossy\",\n\"city\" : \"Boston\",\n\"email\" : \"doofuBos@gmail.com\"\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/merchants"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new Customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\" : \"DoofuActonIsCustomer\",\n\"city\" : \"Boston\",\n\"email\" : \"doofuBos@gmail.com\"\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/customers"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Merchant information",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"customer_id\" : 1,\n\"merchant_id\" : 20\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/merchants/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer Orders ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{CUSTOMER_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"customer_id\" : 1,\n\"merchant_id\" : 20\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/customers/1/orders"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Merchant Orders ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{MERCHANT_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"customer_id\" : 1,\n\"merchant_id\" : 20\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/merchants/1/orders"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Customer",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\" : \"DoofuActonIsCustomer1\",\n\"city\" : \"Boston\",\n\"email\" : \"doofuBos@gmail.com\"\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/customers/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Merchant",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\" : \"DoofuActonIsCustomer1\",\n\"city\" : \"Boston\",\n\"email\" : \"doofuBos@gmail.com\"\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/merchants/4"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Customer information",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\" : \"DoofuActonIsCustomerPatched\",\n\"city\" : \"Boston\",\n\"email\" : \"doofuBos@gmail.com\"\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/customers/6"
+			},
+			"response": []
+		},
+		{
+			"name": "Health Status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\" : \"DoofuActonIsCustomerPatched\",\n\"city\" : \"Boston\",\n\"email\" : \"doofuBos@gmail.com\"\n}"
+				},
+				"url": "https://pickup-project.herokuapp.com/"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
