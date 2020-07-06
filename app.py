@@ -26,6 +26,7 @@ def create_app():
         })
 
     @app.route('/customers/<int:customer_id>/orders')
+    @requires_auth('read:orders')
     def get_customer_orders(customer_id):
         orders = db.session.query(Order.id,
                                   Merchant.id.label('merchant_id'),
@@ -99,14 +100,15 @@ def create_app():
         })
 
     @app.route('/merchants/<int:merchant_id>/orders', methods=['GET'])
+    @requires_auth("read:orders")
     def get_merchant_orders(merchant_id):
         orders = db.session.query(Order.id,
                                   Customer.id.label('customer_id'),
                                   Customer.name.label('customer_name'),
                                   Customer.city.label('customer_city'),
-                                  Customer.email.label('customer_email'))\
-            .join(Merchant, Order.merchant_id == Merchant.id)\
-            .join(Customer, Order.customer_id == Customer.id)\
+                                  Customer.email.label('customer_email')) \
+            .join(Merchant, Order.merchant_id == Merchant.id) \
+            .join(Customer, Order.customer_id == Customer.id) \
             .filter(Merchant.id == merchant_id).all()
         return jsonify({
             "orders": [{
@@ -118,9 +120,8 @@ def create_app():
             } for order in orders]
         })
 
-
     @app.route('/merchants', methods=['POST'])
-    def create_merchants():
+    def create_merchant():
         try:
             body = request.get_json()
             merchant = Merchant(name=body['name'],
@@ -134,7 +135,21 @@ def create_app():
             "merchant": merchant.format()
         })
 
+    @app.route('/merchants/<int:merchant_id>', methods=['DELETE'])
+    def delete_merchant(merchant_id):
+        try:
+            merchant = Merchant.query.filter_by(id=merchant_id).one_or_none()
+            merchant.delete()
+        except Exception as e:
+            db.session.rollback()
+        finally:
+            db.session.close()
+        return jsonify({
+            "success": True
+        })
+
     @app.route('/orders', methods=['POST'])
+    @requires_auth("create:orders")
     def create_orders():
         body = request.get_json()
         try:
@@ -152,14 +167,6 @@ def create_app():
             abort(400)
         return jsonify({
             "success": True
-        })
-
-    @app.route('/orders/<int:order_id>')
-    def get_order(order_id):
-        order = Order.query.filter_by(id=order_id).one_or_none()
-        return jsonify({
-            "success": True,
-            "order": order.format()
         })
 
     @app.route('/')

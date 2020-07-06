@@ -7,7 +7,7 @@ from urllib.request import urlopen
 
 AUTH0_DOMAIN = 'fsndudacityguru.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'drinks'
+API_AUDIENCE = 'pickupauth'
 
 # AuthError Exception
 '''
@@ -87,7 +87,6 @@ def check_permissions(permission, payload):
             }, 401)
 
         if permission not in payload["permissions"]:
-            print(f"payload: {payload},   permission: {permission}")
             raise AuthError({
                 'code': 'invalid_permissions',
                 'description': 'Request is not authorized due to permissions'
