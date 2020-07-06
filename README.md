@@ -66,7 +66,7 @@ python test_app.py
 
 Get the information of a particular customer
 ##### Request
-Eg: `curl http://localhost:3000/customers/1`
+Eg: `curl http://localhost:5000/customers/1`
 
 ##### Response
 ```
@@ -80,190 +80,276 @@ Eg: `curl http://localhost:3000/customers/1`
 }
 ```
 
-### `GET /questions`
-Gets all the questions that are available and is paginated. It is restricted to 10 questions per page
-Use page parameter for the page
+### `GET /merchants/<int:merchant_id>`
+
+Get the information of a particular merchant
 ##### Request
-
-Parameters: `page`
-
-Eg: `curl -v http://localhost:3000/questions?page=1`
+Eg: `curl http://localhost:5000/merchant/1`
 
 ##### Response
 ```
 {
-    "categories": [
-        {
+    "merchant": {
+        "city": "Austin",
+        "email": "doofu@gmail.com",
         "id": 1,
-        "type": "Science"
-        }
-    ],
-    "current_category": "Sports",
-    "questions": [
+        "name": "Doofu"
+    }
+}
+```
+
+### `POST /customers`
+
+Create a new Customer
+
+##### Request
+
+Required Fields:
+| Fields   |      Type      |
+|----------|:-------------:|
+| name |  string |
+| city | string   |
+| email | string |
+
+
+##### Response
+```
+{
+    "customer": {
+        "city": "Boston",
+        "email": "doofuBos@gmail.com",
+        "id": 2,
+        "name": "DoofuBoston"
+    },
+    "success": true
+}
+```
+
+### `PATCH /customers/<int:customer_id>`
+
+Update customer information
+
+##### Request
+
+Required Fields:
+| Fields   |      Type      |
+|----------|:-------------:|
+| name |  string |
+| city | string   |
+| email | string |
+
+Payload
+```
+{
+    "name" : "Doofu",
+    "city" : "Boston",
+    "email" : "doofuBos@gmail.com"
+}
+```
+
+##### Response
+```
+{
+    "customer": {
+        "city": "Boston",
+        "email": "doofuBos@gmail.com",
+        "id": 2,
+        "name": "DoofuBoston"
+    },
+    "success": true
+}
+```
+
+
+### `DELETE /customers<int:customer_id>`
+
+Delete a Customer
+
+##### Request
+
+
+Eg: `curl -X DELETE http://localhost:5000/customers/1`
+
+##### Response
+```
+{
+    "success": True
+}
+```
+
+### `POST /merchants`
+
+Create a new Merchant
+
+##### Request
+
+Required Fields:
+| Fields   |      Type      |
+|----------|:-------------:|
+| name |  string |
+| city | string   |
+| email | string |
+
+Payload
+```
+{
+    "name" : "Doofu",
+    "city" : "Boston",
+    "email" : "doofuBos@gmail.com"
+}
+```
+
+##### Response
+```
+{
+    "merchant": {
+        "city": "Boston",
+        "email": "doofuBos@gmail.com",
+        "id": 1,
+        "name": "DoofuBoston"
+    },
+    "success": true
+}
+```
+
+### `DELETE /merchants<int:merchant_id>`
+
+Delete a merchant
+
+##### Request
+
+
+Eg: `curl -X DELETE http://localhost:5000/merchants/1`
+
+##### Response
+```
+{
+    "success": True
+}
+```
+
+
+
+### `POST /orders`
+
+Create a new order
+Authorized endpoint and will need permissions to create a new order
+
+##### Request
+
+Required Fields:
+| Fields   |      Type      |
+|----------|:-------------:|
+| customer_id |    integer   |
+| merchant_id | integer |
+
+```
+{
+    "customer_id" : 1,
+    "merchant_id" : 2
+}
+```
+
+Headers
+```
+{
+    Content-Type: application/json,
+    Authorization: Bearer <TOKEN>
+}
+```
+
+
+##### Response
+Eg:
+```
+{
+    "success": true
+}
+```
+
+### `GET /merchants/<int:merchant_id>/orders`
+
+Get the orders for a particular merchant
+Authorized Endpoint and will need permissions to read orders
+
+##### Request
+Eg: `curl http://localhost:5000/merchant/1`
+
+Headers
+```
+{
+    Content-Type: application/json,
+    Authorization: Bearer <TOKEN>
+}
+```
+
+##### Response
+```
+{
+    "orders": [
         {
-        "answer": "The Palace of Versailles",
-        "category": 3,
-        "difficulty": 3,
-        "id": 14,
-        "question": "In which royal palace would you find the Hall of Mirrors?"
+            "customer_city": "Austin",
+            "customer_email": "doofu@gmail.com",
+            "customer_id": 1,
+            "customer_name": "Doofu",
+            "order_id": 2
         }
-    ],
-    "success": true,
-    "total_questions": 21
+    ]
 }
 ```
 
+### `GET /customers/<int:customer_id>/orders`
 
-### `DELETE /questions/<int:question_id>`
-
-Delete a specific question given its question id
+Get the orders for a particular customer
+Authorized Endpoint and will need permissions to read orders
 
 ##### Request
+Eg: `curl http://localhost:5000/customer/1`
 
-Eg: `curl -X DELETE http://localhost:3000/questions`
+Headers
+```
+{
+    Content-Type: application/json,
+    Authorization: Bearer <TOKEN>
+}
+```
 
 ##### Response
 ```
 {
-    "message": "Deleted"
-    "success": True
+    "orders": [
+        {
+            "merchant_city": "Austin",
+            "merchant_email": "doofuBoss@gmail.com",
+            "merchant_id": 1,
+            "merchant_name": "DoofuBoss",
+            "order_id": 1
+        },
+        {
+            "merchant_city": "Boston",
+            "merchant_email": "doofuBos@gmail.com",
+            "merchant_id": 2,
+            "merchant_name": "DoofuActonVeryBossy",
+            "order_id": 2
+        }
+    ]
 }
 ```
-
-### `POST /questions`
-
-Create a new question with the given details as part of the body
-##### Request
-
-Required Fields:
-| Fields   |      Type      |
-|----------|:-------------:|
-| answer |  string |
-| category |    integer   |
-| difficulty | integer |
-| question | string |
-
-```
-{
-    "answer": "Maya Angelou",
-    "category": 4,
-    "difficulty": 2,
-    "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-}
-```
-
-##### Response
-Eg:
-```
-{
-    "id": 1,
-    "message" : "Added",
-    "success": True
-}
-```
-
-### `POST /search`
-
-It searches and displays all the questions that have a substring equal to the given string
-##### Request
-
-Required Fields:
-| Fields   |      Type      |
-|----------|:-------------:|
-| searchTerm |  string |
-
-```
-{
-    "searchTerm" : "country"
-}
-```
-
-##### Response
-Eg:
-```
-{
-  "current_category": "Sports", 
-  "questions": [
-    {
-      "answer": "Lake Victoria", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 13, 
-      "question": "What is the largest lake in Africa?"
-    }
-  ], 
-  "total_questions": 1
-}
-
-```
-Errors:
-400 for bad request
-
-
-### `GET /categories/<int:category_id>/questions`
-Get all the questions for a particular category
-##### Request
-
-Eg: `curl http://localhost:3000/categories/1/questions`
-
-##### Response
-```
-{
-  "currentCategory": 1, 
-  "questions": [
-    {
-      "answer": "Alexander Fleming", 
-      "category": 1, 
-      "difficulty": 3, 
-      "id": 21, 
-      "question": "Who discovered penicillin?"
-    }
-  ], 
-  "success": true, 
-  "totalQuestions": 1
-}
-
-```
-
-### `POST /quizzes`
-
-This is the trivia quiz which gives the next question for a particular category. The next question is randomized and does not repeat. 
-##### Request
-
-Provide the previous question id so that we know which questions were asked and they are not repeated. 
-`quiz_category` is a category object. 
-
-Required Fields:
-| Fields   |      Type      |
-|----------|:-------------:|
-| previous_questions |  List |
-| quiz_category |  object |
-```
-{
-    "previous_questions":[],
-    "quiz_category":{
-        "type":"Science",
-        "id":1
-    }
-}
-```
-
-##### Response
-Eg:
-```
-{
-    "question": {
-        "answer": "Mona Lisa", 
-        "category": 2, 
-        "difficulty": 3, 
-        "id": 17, 
-        "question": "La Giaconda is better known as what?"
-  }
-}
-``` 
 
 
 ### Errors
+
+##### `401 - Not Authorized`
+
+Response
+```
+{
+    "error": 401,
+    "message": "<Customer Error message>",
+    "success": false
+}
+```
+
 
 ##### `400 - Bad Request`
 
@@ -283,7 +369,7 @@ Response
 {
     "success": False,
     "error": 500,
-    "message": "Server Error"
+    "message": "Server Error, something went wrong"
 }
 ```
 
