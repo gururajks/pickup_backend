@@ -45,16 +45,12 @@ chmod +x setup.sh
 ```
 
 ## AUTH0:
-Customer: "create:orders", "read:orders" 
-
-A customer can create and read orders
-
+Customer: "create:orders", "read:orders". 
+A customer can create and read orders.
 AUTH0 role: pickup_customer 
 
-Merchant: "read:orders"
-
-A merchant can only read orders 
-
+Merchant: "read:orders".
+A merchant can only read orders.
 AUTH0 role: pickup_merchant
 
 Authorization is required for creating and reading orders
