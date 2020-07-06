@@ -395,3 +395,15 @@ Response
     "message": "Method not allowed. Please check documentation"
 }
 ```
+
+
+##### `422 - Unprocessable`
+
+Response
+```
+{
+    "success": False,
+    "error": 422,
+    "message": "unprocessable"
+}
+```
