@@ -148,6 +148,9 @@ def create_app():
             "success": True
         })
 
+    '''
+    Create a new order, will require permissions
+    '''
     @app.route('/orders', methods=['POST'])
     @requires_auth("create:orders")
     def create_orders():
@@ -173,6 +176,9 @@ def create_app():
     def healthy():
         return 'Healthy!'
 
+    '''
+    Errors
+    '''
     @app.errorhandler(400)
     def bad_request(error):
         return jsonify({

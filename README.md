@@ -235,6 +235,10 @@ Eg: `curl -X DELETE http://localhost:5000/merchants/1`
 Create a new order
 Authorized endpoint and will need permissions to create a new order
 
+Permissions Required:
+`create:orders`
+
+
 ##### Request
 
 Required Fields:
@@ -272,6 +276,9 @@ Eg:
 Get the orders for a particular merchant
 Authorized Endpoint and will need permissions to read orders
 
+Permissions required:
+`read:orders`
+
 ##### Request
 Eg: `curl http://localhost:5000/merchant/1`
 
@@ -302,6 +309,9 @@ Headers
 
 Get the orders for a particular customer
 Authorized Endpoint and will need permissions to read orders
+
+Permissions required:
+`read:orders`
 
 ##### Request
 Eg: `curl http://localhost:5000/customer/1`
