@@ -38,6 +38,7 @@ flask db upgrade
 ## Running the server
 
 Run the setup.sh to get the local server running. 
+Please make sure you have ran the database setup before running the setup script
 ```bash
 chmod +x setup.sh
 ./setup.sh
@@ -45,11 +46,15 @@ chmod +x setup.sh
 
 ## AUTH0:
 Customer: "create:orders", "read:orders" 
+
 A customer can create and read orders
+
 AUTH0 role: pickup_customer 
 
 Merchant: "read:orders"
+
 A merchant can only read orders 
+
 AUTH0 role: pickup_merchant
 
 Authorization is required for creating and reading orders
