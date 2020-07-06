@@ -169,7 +169,7 @@ def verify_decode_jwt(token):
             }, 400)
     raise AuthError({
         'code': 'invalid_header',
-                'description': 'Unable to find the appropriate key or No permission'
+        'description': 'Unable to find the appropriate key or No permission'
     }, 401)
 
 
@@ -195,4 +195,5 @@ def requires_auth(permission=''):
             return f(*args, **kwargs)
 
         return wrapper
+
     return requires_auth_decorator

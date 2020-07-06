@@ -43,12 +43,14 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-#### AUTH0 Roles:
+## AUTH0:
 Customer: "create:orders", "read:orders" 
 A customer can create and read orders
+AUTH0 role: pickup_customer 
 
 Merchant: "read:orders"
 A merchant can only read orders 
+AUTH0 role: pickup_merchant
 
 Authorization is required for creating and reading orders
 There is no authorization required for fetching/updating/deleting customer or merchant information.  
@@ -58,8 +60,10 @@ CUSTOMER_TOKEN = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImQ4ZzltZTNhR1RZZ1R
 
 MERCHANT_TOKEN = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImQ4ZzltZTNhR1RZZ1RwNEFVb3ktTSJ9.eyJpc3MiOiJodHRwczovL2ZzbmR1ZGFjaXR5Z3VydS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWYwMjRiNzg5Mjg4MmMwMDEzNWQ4ZDYxIiwiYXVkIjoicGlja3VwYXV0aCIsImlhdCI6MTU5NDA1MDEyOCwiZXhwIjoxNTk0MTM2NTI4LCJhenAiOiJjSUVGWlpBc3dVUXRhcVdkVlpvOFpIU0pKcVg4TnF4eiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsicmVhZDpvcmRlcnMiXX0.GyQOtvmdEYxiAh8eH-jcP0EPek33ePDekc1TThd2dLtKXfU6m_lG8YdFH04bqcbGlhX041DBocWAkeD_v7Z3FvI4Ic776FfIlBP1gdR4Cxu5kNK71GrbMYmUOIH_nWOmtOaBeO6VJSB2CKM_fWe5jqESEd7WD4btmf66r3KAxjTPU9r6E_3KU4pmYbsE0vH3mnthMg6ig83F9-FKpj-9375qRZ8FC1YBJPW5UmLxyAJLw4itdqwSeC7lC1exPFBGNCt8Fd0rIgVb7aBSEBfqWGa2oCDQ5o8ZOi9BaRD8NFllVnV6Zkii4-4R42Q3fp5rR9NY-CRv2TS1jFWgllqaAg
 ```
-CLIENT_ID = cIEFZZAswUQtaqWdVZo8ZHSJJqX8Nqxz
 
+`CLIENT_ID = cIEFZZAswUQtaqWdVZo8ZHSJJqX8Nqxz`
+
+`AUTH0 Domain = fsndudacityguru.auth0.com`
 
 
 ## Hosted App
